@@ -10,4 +10,7 @@
     <string name="activity">Activity</string>
 
     <string name="api_url">http://www.icndb.com/api</string>
+    <string name="web_title">Api info</string>
+    <string name="reload">Reload</string>
+    <string name="count">Count</string>
 </resources>

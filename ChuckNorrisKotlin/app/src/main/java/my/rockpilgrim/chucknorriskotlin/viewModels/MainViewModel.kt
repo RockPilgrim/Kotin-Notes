@@ -12,23 +12,43 @@ import my.rockpilgrim.chucknorriskotlin.data.pogo.Joke
 
 class MainViewModel : ViewModel() {
 
-    val TAG = "MainViewModel"
+    companion object {
+        private val TAG = MainViewModel::class.java.simpleName
+        private const val MAX_COUNT = 500
+
+    }
     val jokeList: MutableLiveData<Event> = MutableLiveData()
 
+    private var count: Int = -1
     val currentName: MutableLiveData<String> by lazy {
         MutableLiveData<String>()
     }
 
     init {
-        loadJokes()
+        Log.i(TAG, "init()")
     }
 
-    fun loadJokes() {
+    fun loadJokes(count: Int) {
         jokeList.postValue(Event.Loading)
+        if (!checkCount(count)) {
+            jokeList.postValue(Event.Error("Error"))
+            return
+        }
         this.viewModelScope.launch(Dispatchers.IO) {
             Log.i(TAG, "initJokes() corutines ${Thread.currentThread().name}")
-            val list: List<Joke> = JokeRepository().getJokes(32).jokes
+            val list: List<Joke> = JokeRepository().getJokes(count).jokes
             jokeList.postValue(Event.Success(list))
         }
+    }
+    fun loadJokes() {
+        loadJokes(count)
+    }
+
+    private fun checkCount(count: Int) :Boolean{
+        if (count in 1 until MAX_COUNT) {
+            this.count = count
+            return true
+        }
+        return false
     }
 }

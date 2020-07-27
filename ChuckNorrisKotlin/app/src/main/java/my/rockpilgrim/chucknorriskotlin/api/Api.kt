@@ -8,13 +8,13 @@ import retrofit2.http.Path
 interface Api {
 
 
-    @GET("/jokes/random/{count}")
+    @GET("/jokes/random/{count}/?escape=javascript")
     suspend fun getJokes(@Path(value = "count")count: Int): JokeList
 
     companion object Network{
-        private val BASE_URL = "https://api.icndb.com"
+        private const val BASE_URL = "https://api.icndb.com"
 
-        fun create() =
+        fun create(): Api =
             retrofit2.Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())

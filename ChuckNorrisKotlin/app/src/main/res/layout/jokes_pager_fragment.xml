@@ -2,53 +2,27 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-        <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/fragmentsViewPager"
+            android:layout_weight="1"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="0dp" />
 
-            <com.google.android.material.appbar.AppBarLayout
-                android:id="@+id/appBarLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavigation"
+            android:background="@color/colorPrimary"
+            app:menu="@menu/pager_menu"
+            app:itemIconTint="@color/jokes_color_selector"
+            app:itemTextColor="@color/jokes_color_selector"
+            android:layout_gravity="bottom"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/navigationBar"/>
+    </LinearLayout>
 
-                <com.google.android.material.appbar.CollapsingToolbarLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_scrollFlags="scroll|snap">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <androidx.appcompat.widget.Toolbar
-                            android:id="@+id/toolbar"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:layout_collapseMode="parallax"
-                            app:title="@string/pager"
-                            app:titleTextColor="#FFF" />
-                    </LinearLayout>
-                </com.google.android.material.appbar.CollapsingToolbarLayout>
-            </com.google.android.material.appbar.AppBarLayout>
-
-            <androidx.viewpager2.widget.ViewPager2
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                android:id="@+id/fragmentsViewPager"
-                android:layout_weight="1"
-                android:orientation="horizontal"
-                android:layout_marginBottom="@dimen/navigationBar"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-            <com.google.android.material.bottomnavigation.BottomNavigationView
-                android:id="@+id/bottomNavigation"
-                android:background="@color/colorPrimary"
-                app:menu="@menu/pager_menu"
-                app:itemIconTint="@color/jokes_color_selector"
-                app:itemTextColor="@color/jokes_color_selector"
-                android:layout_gravity="bottom"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/navigationBar"/>
-
-        </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

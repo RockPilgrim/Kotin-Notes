@@ -9,9 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import kotlinx.android.synthetic.main.jokes_pager_fragment.*
 import kotlinx.android.synthetic.main.jokes_pager_fragment.view.*
-import my.rockpilgrim.chucknorriskotlin.adapters.JOKES_FRAGMENT
 import my.rockpilgrim.chucknorriskotlin.adapters.JokePagerAdapter
-import my.rockpilgrim.chucknorriskotlin.adapters.WEB_FRAGMENT
+import my.rockpilgrim.chucknorriskotlin.adapters.JokePagerAdapter.Companion.JOKES_FRAGMENT
+import my.rockpilgrim.chucknorriskotlin.adapters.JokePagerAdapter.Companion.WEB_FRAGMENT
 import my.rockpilgrim.chucknorriskotlin.databinding.JokesPagerFragmentBinding
 
 class PagerFragment : Fragment() {
@@ -24,17 +24,16 @@ class PagerFragment : Fragment() {
         val binding: JokesPagerFragmentBinding =
             JokesPagerFragmentBinding.inflate(inflater, container, false)
 
-
-        (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
+//        (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
         initPager(binding.root)
         return binding.root
     }
 
     private fun initPager(root:View) {
-        val pagerAdapter = JokePagerAdapter(this)
+//        val pagerAdapter = JokePagerAdapter(this)
         val viewPager = root.fragmentsViewPager
         val bottomNavigation = root.bottomNavigation
-        viewPager.adapter = pagerAdapter
+//        viewPager.adapter = pagerAdapter
 
 
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
@@ -48,16 +47,17 @@ class PagerFragment : Fragment() {
             }
         })
 
-        viewPager.isUserInputEnabled = false
 
         bottomNavigation.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.jokeTab -> {
                     fragmentsViewPager.currentItem = JOKES_FRAGMENT
+                    viewPager.isUserInputEnabled = true
                     true
                 }
                 R.id.webTab -> {
                     fragmentsViewPager.currentItem = WEB_FRAGMENT
+                    viewPager.isUserInputEnabled = false
                     true
                 }
                 else -> false
